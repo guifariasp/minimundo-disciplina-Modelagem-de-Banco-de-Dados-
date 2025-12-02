@@ -1,0 +1,54 @@
+BEGIN TRANSACTION;
+
+
+create table voluntario (
+    id_voluntario INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT(50) NOT NULL,
+    telefone TEXT(15)
+);
+
+----TABELA CADASTRO
+create table cadastro(
+    id_cadastro INTEGER PRIMARY KEY AUTOINCREMENT,
+    formação TEXT(30) NOT NULL,
+    experiencia TEXT(30) NOT NULL,
+    disponibilidade TEXT(30) NOT NULL,
+    id_voluntario INTEGER,
+    FOREIGN KEY (id_voluntario) REFERENCES voluntario(id_voluntario)
+);
+
+------TABELA CONSULTA
+
+create table consulta(
+    id_consulta INTEGER PRIMARY KEY AUTOINCREMENT,
+    formação TEXT(30) NOT NULL,
+    experiencia TEXT(30) NOT NULL,
+    disponibilidade TEXT(30) NOT NULL
+);
+
+-----tabela posição
+
+create table posição(
+    id_posicao INTEGER PRIMARY KEY AUTOINCREMENT,
+    area_de_atuação TEXT(30) NOT NULL,
+    horário TEXT(30) NOT NULL 
+);
+
+------tabela recrutador
+
+create table recrutador(
+    id_consulta INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT(50) NOT NULL,
+    codigo profissional INTEGER NOT NULL,
+    id_posicao INTEGER,
+    FOREIGN KEY(id_posicao) REFERENCES posição(id_posicao)
+);
+
+------tabela posição-consulta
+
+create table posicao_consulta(
+    id_posicao INTEGER,
+    id_recrutador INTEGER,
+    FOREIGN KEY(id_posicao) REFERENCES posição(id_posicao),
+    FOREIGN KEY(id_recrutador) REFERENCES recrutador(id_recrutador)
+);
